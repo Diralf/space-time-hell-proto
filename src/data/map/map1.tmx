@@ -119,10 +119,10 @@
   </data>
  </layer>
  <objectgroup id="13" name="Shadow Collision" class="shadow">
-  <object id="41" type="platform" x="560" y="910.667">
+  <object id="41" type="shadow platform" x="560" y="910.667">
    <polyline points="0,0 70,0"/>
   </object>
-  <object id="42" type="platform" x="421.333" y="910.667">
+  <object id="42" type="shadow platform" x="421.333" y="910.667">
    <polyline points="0,0 70,0"/>
   </object>
  </objectgroup>

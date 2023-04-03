@@ -146,6 +146,9 @@ class PlayerEntity extends me.Entity {
         switch (other.body.collisionType) {
             case me.collision.types.WORLD_SHAPE:
                 // Simulate a platform object
+                if (other.type === "shadow platform") {
+                    return false;
+                }
                 if (other.type === "platform") {
                     if (this.body.falling &&
                         !me.input.isKeyPressed("down") &&

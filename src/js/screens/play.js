@@ -12,6 +12,10 @@ class PlayScreen extends me.Stage {
       // load a level
         me.level.load("map1");
 
+        const level = me.level.getCurrentLevel();
+        const shadowLayers = level.getLayers().filter((layer) => layer.class === 'shadow');
+        shadowLayers.forEach((layer) => layer.setOpacity(0.2));
+
         // reset the score
         game.data.score = 0;
 
@@ -30,7 +34,7 @@ class PlayScreen extends me.Stage {
         }
 
         // play some music
-        me.audio.playTrack("dst-gameforest");
+        // me.audio.playTrack("dst-gameforest");
     }
 
     /**
