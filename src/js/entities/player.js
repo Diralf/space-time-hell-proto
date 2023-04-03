@@ -1,5 +1,8 @@
 import * as me from 'melonjs';
 import game from './../game.js';
+import { Dimension } from '../constants/dimension.js';
+import { setLayerOpacity } from '../utils/level';
+import { changeDimension } from '../utils/dimension';
 
 class PlayerEntity extends me.Entity {
     constructor(x, y, settings) {
@@ -20,6 +23,8 @@ class PlayerEntity extends me.Entity {
 
         this.multipleJump = 1;
 
+        changeDimension(this, Dimension.REAL);
+
         // set the viewport to follow this renderable on both axis, and enable damping
         me.game.viewport.follow(this, me.game.viewport.AXIS.BOTH, 0.1);
 
@@ -35,6 +40,8 @@ class PlayerEntity extends me.Entity {
         me.input.bindKey(me.input.KEY.D,     "right");
         me.input.bindKey(me.input.KEY.W,     "jump", true);
         me.input.bindKey(me.input.KEY.S,     "down");
+
+        me.input.bindKey(me.input.KEY.C,     "dimension", true);
 
         //me.input.registerPointerEvent("pointerdown", this, this.onCollision.bind(this));
         //me.input.bindPointer(me.input.pointer.RIGHT, me.input.KEY.LEFT);
@@ -128,6 +135,10 @@ class PlayerEntity extends me.Entity {
             return true;
         }
 
+        if (me.input.isKeyPressed("dimension")) {
+            changeDimension(this, this.dimension === Dimension.REAL ? Dimension.SHADOW : Dimension.REAL);
+        }
+
         // check if we moved (an "idle" animation would definitely be cleaner)
         if (this.body.vel.x !== 0 || this.body.vel.y !== 0 ||
             (this.renderable && this.renderable.isFlickering())
@@ -147,20 +158,37 @@ class PlayerEntity extends me.Entity {
             case me.collision.types.WORLD_SHAPE:
                 // Simulate a platform object
                 if (other.type === "shadow platform") {
+                    if (this.dimension === Dimension.SHADOW) {
+                        if (this.body.falling &&
+                            !me.input.isKeyPressed("down") &&
+                            // Shortest overlap would move the player upward
+                            (response.overlapV.y > 0) &&
+                            // The velocity is reasonably fast enough to have penetrated to the overlap depth
+                            (~~this.body.vel.y >= ~~response.overlapV.y)
+                        ) {
+                            // Disable collision on the x axis
+                            response.overlapV.x = 0;
+                            // Repond to the platform (it is solid)
+                            return true;
+                        }
+                    }
+                    // Do not respond to the platform (pass through)
                     return false;
                 }
                 if (other.type === "platform") {
-                    if (this.body.falling &&
-                        !me.input.isKeyPressed("down") &&
-                        // Shortest overlap would move the player upward
-                        (response.overlapV.y > 0) &&
-                        // The velocity is reasonably fast enough to have penetrated to the overlap depth
-                        (~~this.body.vel.y >= ~~response.overlapV.y)
-                    ) {
-                        // Disable collision on the x axis
-                        response.overlapV.x = 0;
-                        // Repond to the platform (it is solid)
-                        return true;
+                    if (this.dimension === Dimension.REAL) {
+                        if (this.body.falling &&
+                            !me.input.isKeyPressed("down") &&
+                            // Shortest overlap would move the player upward
+                            (response.overlapV.y > 0) &&
+                            // The velocity is reasonably fast enough to have penetrated to the overlap depth
+                            (~~this.body.vel.y >= ~~response.overlapV.y)
+                        ) {
+                            // Disable collision on the x axis
+                            response.overlapV.x = 0;
+                            // Repond to the platform (it is solid)
+                            return true;
+                        }
                     }
                     // Do not respond to the platform (pass through)
                     return false;
