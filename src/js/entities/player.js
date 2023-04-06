@@ -8,11 +8,16 @@ import { SlopeCollisionHandler } from '../collision-handlers/slope.collision-han
 import { TeleportCollisionHandler } from '../collision-handlers/teleport.collision-handler';
 import { EnemyCollisionHandler } from '../collision-handlers/enemy.collision-handler';
 import { getCollisionHandler } from '../collision-handlers/get-collision-handler.util';
+import { TeleportEntityComponent } from '../components/teleport-entity.component';
 
 class PlayerEntity extends me.Entity {
     constructor(x, y, settings) {
         // call the constructor
         super(x, y , settings);
+
+        this.components = [
+            new TeleportEntityComponent(this, settings),
+        ];
 
         // set a "player object" type
         this.body.collisionType = me.collision.types.PLAYER_OBJECT;
@@ -66,16 +71,16 @@ class PlayerEntity extends me.Entity {
 
         // set a renderable
         this.renderable = game.texture.createAnimationFromName([
-            "walk0001.png", "walk0002.png", "walk0003.png",
-            "walk0004.png", "walk0005.png", "walk0006.png",
-            "walk0007.png", "walk0008.png", "walk0009.png",
-            "walk0010.png", "walk0011.png"
+            "character/walk0001", "character/walk0002", "character/walk0003",
+            "character/walk0004", "character/walk0005", "character/walk0006",
+            "character/walk0007", "character/walk0008", "character/walk0009",
+            "character/walk0010", "character/walk0011"
         ]);
 
         // define a basic walking animatin
-        this.renderable.addAnimation("stand", [{ name: "walk0001.png", delay: 100 }]);
-        this.renderable.addAnimation("walk",  [{ name: "walk0001.png", delay: 100 }, { name: "walk0002.png", delay: 100 }, { name: "walk0003.png", delay: 100 }]);
-        this.renderable.addAnimation("jump",  [{ name: "walk0004.png", delay: 150 }, { name: "walk0005.png", delay: 150 }, { name: "walk0006.png", delay: 150 }, { name: "walk0002.png", delay: 150 }, { name: "walk0001.png", delay: 150 }]);
+        this.renderable.addAnimation("stand", [{ name: "character/walk0001", delay: 100 }]);
+        this.renderable.addAnimation("walk",  [{ name: "character/walk0001", delay: 100 }, { name: "character/walk0002", delay: 100 }, { name: "character/walk0003", delay: 100 }]);
+        this.renderable.addAnimation("jump",  [{ name: "character/walk0004", delay: 150 }, { name: "character/walk0005", delay: 150 }, { name: "character/walk0006", delay: 150 }, { name: "character/walk0007", delay: 150 }, { name: "character/walk0001", delay: 150 }]);
 
         // set as default
         this.renderable.setCurrentAnimation("walk");
@@ -159,7 +164,14 @@ class PlayerEntity extends me.Entity {
      * colision handler
      */
     onCollision(response, other) {
-        const handler = getCollisionHandler(response, other);
+        if (other.type === 'teleport_1') {
+            console.log(other, me.collision.types);
+        }
+        const componentHandler = this.components
+            .filter(component => component.getCollisionHandler)
+            .map(component => component.getCollisionHandler(response, other))
+            [0];
+        const handler = componentHandler ?? getCollisionHandler(response, other);
         return handler.handle(this, response, other);
     }
 
@@ -183,6 +195,8 @@ class PlayerEntity extends me.Entity {
             me.audio.play("die", false);
         }
     }
+
+
 };
 
 export default PlayerEntity;

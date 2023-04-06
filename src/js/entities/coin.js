@@ -10,7 +10,7 @@ class CoinEntity extends me.Collectable {
         super(x, y,
             Object.assign({
                 image: game.texture,
-                region : "coin.png",
+                region : "collectables/coin",
                 shapes :[new me.Ellipse(35 / 2, 35 / 2, 35, 35)] // coins are 35x35
             })
         );

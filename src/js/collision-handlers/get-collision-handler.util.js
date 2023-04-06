@@ -3,7 +3,6 @@ import { DefaultCollisionHandler } from "./default.collision-handler";
 import { EnemyCollisionHandler } from "./enemy.collision-handler";
 import { PlatformCollisionHandler } from "./platform.collision-handler";
 import { SlopeCollisionHandler } from "./slope.collision-handler";
-import { TeleportCollisionHandler } from "./teleport.collision-handler";
 import { WorldShapeCollisionHandler } from "./world-shape.collision-handler";
 import { Dimension } from '../constants/dimension';
 
@@ -17,8 +16,6 @@ export const getCollisionHandler = (response, other) => {
                     return new PlatformCollisionHandler(Dimension.REAL);
                 case 'slope': 
                     return new SlopeCollisionHandler();
-                case 'teleport': 
-                    return new TeleportCollisionHandler();
                 default: 
                     return new WorldShapeCollisionHandler();   
             }

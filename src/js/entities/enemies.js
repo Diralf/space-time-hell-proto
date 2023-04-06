@@ -140,7 +140,7 @@ export class SlimeEnemyEntity extends PathEnemyEntity {
 
         // set a renderable
         this.renderable = game.texture.createAnimationFromName([
-            "slime_normal.png", "slime_walk.png", "slime_dead.png"
+            "enemies/slime_normal", "enemies/slime_walk", "enemies/slime_dead"
         ]);
 
         // custom animation speed ?
@@ -149,9 +149,9 @@ export class SlimeEnemyEntity extends PathEnemyEntity {
         }
 
         // walking animatin
-        this.renderable.addAnimation ("walk", ["slime_normal.png", "slime_walk.png"]);
+        this.renderable.addAnimation ("walk", ["enemies/slime_normal", "enemies/slime_walk"]);
         // dead animatin
-        this.renderable.addAnimation ("dead", ["slime_dead.png"]);
+        this.renderable.addAnimation ("dead", ["enemies/slime_dead"]);
 
         // set default one
         this.renderable.setCurrentAnimation("walk");
@@ -179,7 +179,7 @@ export class FlyEnemyEntity extends PathEnemyEntity {
 
         // set a renderable
         this.renderable = game.texture.createAnimationFromName([
-            "fly_normal.png", "fly_fly.png", "fly_dead.png"
+            "enemies/fly_normal", "enemies/fly_fly", "enemies/fly_dead"
         ]);
 
         // custom animation speed ?
@@ -188,9 +188,9 @@ export class FlyEnemyEntity extends PathEnemyEntity {
         }
 
         // walking animatin
-        this.renderable.addAnimation ("walk", ["fly_normal.png", "fly_fly.png"]);
+        this.renderable.addAnimation ("walk", ["enemies/fly_normal", "enemies/fly_fly"]);
         // dead animatin
-        this.renderable.addAnimation ("dead", ["fly_dead.png"]);
+        this.renderable.addAnimation ("dead", ["enemies/fly_dead"]);
 
         // set default one
         this.renderable.setCurrentAnimation("walk");

@@ -11,7 +11,7 @@ class FSControl extends me.GUI_Object {
     constructor(x, y) {
         super(x, y, {
             image: game.texture,
-            region : "shadedDark30.png"
+            region : "UI/shadedDark30"
         });
         this.setOpacity(0.5);
     }
@@ -53,7 +53,7 @@ class AudioControl extends me.GUI_Object {
     constructor(x, y) {
         super(x, y, {
             image: game.texture,
-            region : "shadedDark13.png" // ON by default
+            region : "UI/shadedDark13" // ON by default
         });
         this.setOpacity(0.5);
         this.isMute = false;
@@ -79,11 +79,11 @@ class AudioControl extends me.GUI_Object {
     onClick(/* event */) {
         if (this.isMute) {
             me.audio.unmuteAll();
-            this.setRegion(game.texture.getRegion("shadedDark13.png"));
+            this.setRegion(game.texture.getRegion("UI/shadedDark13"));
             this.isMute = false;
         } else {
             me.audio.muteAll();
-            this.setRegion(game.texture.getRegion("shadedDark15.png"));
+            this.setRegion(game.texture.getRegion("UI/shadedDark15"));
             this.isMute = true;
         }
         return false;

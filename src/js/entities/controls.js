@@ -11,7 +11,7 @@ class Button extends me.GUI_Object {
     constructor(x, y) {
         super(x, y, {
             image: game.texture,
-            region : "shadedDark36.png"
+            region : "UI/shadedDark36"
         });
         this.setOpacity(0.25);
         this.anchorPoint.set(0, 0);
@@ -48,14 +48,14 @@ class Joypad extends me.GUI_Object {
         super(x, y, {
             // background "fix" part of the joypad
             image: game.texture,
-            region : "shadedDark07.png",
+            region : "UI/shadedDark07",
             anchorPoint : new me.Vector2d(0, 0)
         });
 
         // mobile part of the joypad
         this.pad = new me.Sprite(x, y, {
             image: game.texture,
-            region : "shadedDark01.png",
+            region : "UI/shadedDark01",
             anchorPoint : new me.Vector2d(0, 0)
         });
 
