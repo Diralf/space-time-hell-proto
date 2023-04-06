@@ -41,6 +41,17 @@ class TeleportEntity extends me.Entity {
 
         // only check for collision against player and world shape
         this.body.setCollisionMask(me.collision.types.PLAYER_OBJECT);
+
+        this.targetTeleportId = settings.teleportTo;
+    }
+
+    update(dt) {
+        if (!this.targetTeleport) {
+            const teleports = me.game.world.getChildByName('TeleportEntity');
+            this.targetTeleport = teleports.find((teleport) => teleport.id === this.targetTeleportId);
+            console.log(this.targetTeleport);
+        }
+        super.update(dt);
     }
 
 };
