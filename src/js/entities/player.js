@@ -26,7 +26,7 @@ class PlayerEntity extends me.Entity {
         this.alwaysUpdate = true;
 
         // walking & jumping speed
-        this.body.setMaxVelocity(3, 15);
+        this.body.setMaxVelocity(1, 15);
         this.body.setFriction(0.4, 0);
 
         this.dying = false;
@@ -37,6 +37,7 @@ class PlayerEntity extends me.Entity {
 
         // set the viewport to follow this renderable on both axis, and enable damping
         me.game.viewport.follow(this, me.game.viewport.AXIS.BOTH, 0.1);
+        
 
         // enable keyboard
         me.input.bindKey(me.input.KEY.LEFT,  "left");
@@ -93,6 +94,7 @@ class PlayerEntity extends me.Entity {
      ** update the force applied
      */
     update(dt) {
+        this.components.forEach((component) => component.update(dt));
 
         if (me.input.isKeyPressed("left")){
             if (this.body.vel.y === 0) {
@@ -196,7 +198,11 @@ class PlayerEntity extends me.Entity {
         }
     }
 
-
+    draw(renderer) {
+        super.draw(renderer);
+        
+        this.components.forEach((component) => component.draw(renderer));
+    }
 };
 
 export default PlayerEntity;

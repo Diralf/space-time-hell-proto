@@ -21,16 +21,16 @@ class PlayScreen extends me.Stage {
         }
         me.game.world.addChild(this.HUD);
 
-        // display if debugPanel is enabled or on mobile
-        if ((me.plugins.debugPanel && me.plugins.debugPanel.panel.visible) || me.device.touch) {
-            if (typeof this.virtualJoypad === "undefined") {
-                this.virtualJoypad = new VirtualJoypad();
-            }
-            me.game.world.addChild(this.virtualJoypad);
-        }
+        // // display if debugPanel is enabled or on mobile
+        // if ((me.plugins.debugPanel && me.plugins.debugPanel.panel.visible) || me.device.touch) {
+        //     if (typeof this.virtualJoypad === "undefined") {
+        //         this.virtualJoypad = new VirtualJoypad();
+        //     }
+        //     me.game.world.addChild(this.virtualJoypad);
+        // }
 
         // play some music
-        // me.audio.playTrack("dst-gameforest");
+        me.audio.playTrack("dst-gameforest");
     }
 
     /**

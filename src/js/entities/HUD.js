@@ -53,10 +53,11 @@ class AudioControl extends me.GUI_Object {
     constructor(x, y) {
         super(x, y, {
             image: game.texture,
-            region : "UI/shadedDark13" // ON by default
+            region : "UI/shadedDark15" // ON by default
         });
         this.setOpacity(0.5);
-        this.isMute = false;
+        this.isMute = true;
+        me.audio.muteAll();
     }
 
     /**

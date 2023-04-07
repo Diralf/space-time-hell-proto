@@ -4,6 +4,7 @@
 * http://www.melonjs.org
 */
 import * as me from 'melonjs';
+import { drawCrossPoint } from './drawPoint';
 
 var DEBUG_HEIGHT = 50;
 
@@ -424,6 +425,9 @@ class DebugPanel extends me.Renderable {
                         -this.pos.y - this.body.getBounds().y - this.ancestor.getAbsolutePosition().y
                     );
 
+                    renderer.setColor("green");
+                    drawCrossPoint(renderer, this.pos.x, this.pos.y);
+
                     if (this.renderable instanceof me.Renderable) {
                         renderer.translate(
                             -this.anchorPoint.x * this.body.getBounds().width,
@@ -431,21 +435,25 @@ class DebugPanel extends me.Renderable {
                         );
                     }
 
+                    renderer.setColor("blue");
+                    drawCrossPoint(renderer, this.pos.x, this.pos.y);
+
                     renderer.translate(
                         this.pos.x + this.ancestor.getAbsolutePosition().x,
                         this.pos.y + this.ancestor.getAbsolutePosition().y
                     );
+                    
 
                     // draw the bounding rect shape
                     renderer.setColor("orange");
                     renderer.stroke(this.body.getBounds());
-
                     // draw all defined shapes
                     renderer.setColor("red");
                     for (var i = this.body.shapes.length, shape; i--, (shape = this.body.shapes[i]);) {
                         renderer.stroke(shape);
                         _this.counters.inc("shapes");
                     }
+
                     renderer.restore();
                 }
 

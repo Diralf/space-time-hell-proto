@@ -6,17 +6,35 @@ class TeleportEntity extends me.Entity {
      * constructor
      */
     constructor(x, y, settings) {
-        console.log(JSON.stringify(settings, null, 2));
+        // // adjust the setting size to the sprite one
+        // settings.width = 3;
+        // settings.height = 70;
 
-        // adjust the setting size to the sprite one
-        settings.width = 1;
-        settings.height = 70;
+        // // redefine the default shape (used to define path) with a shape matching the renderable
+        // settings.shapes = [
+        //     new me.Rect(12, 0, 6, 70),
+        //     new me.Rect(0, 0, 6, 70),
+        // ];
 
-        // redefine the default shape (used to define path) with a shape matching the renderable
-        settings.shapes[0] = new me.Rect(1, 70, 1, 70);
-
-        // call the super constructor
+        // // call the super constructor
         super(x, y, settings);
+        
+        this.targetTeleportId = settings.teleportTo;
+        this.entryX = settings.entryX;
+        this.entryY = settings.entryY;
+        // this.body.getBounds().clear();
+        // this.body.addShape(new me.Rect(12, 0, 6, 70));
+        // this.body.addShape(new me.Rect(0, 0, 6, 70));
+
+        
+        // set the renderable position to bottom center
+        // this.anchorPoint.set(0.5, 1.0);
+        this.body.gravityScale = 0;
+
+        this.body.setMaxVelocity(settings.velX || 1, settings.velY || 0);
+        
+        this.body.collisionType = me.collision.types.WORLD_SHAPE;
+        // this.body.addShape(new me.Rect(6, 0, 6, 70));
 
         // set a renderable
         this.renderable = game.texture.createAnimationFromName([
@@ -27,14 +45,10 @@ class TeleportEntity extends me.Entity {
 
         // set default one
         this.renderable.setCurrentAnimation("idle");
-
+        this.renderable.scale(this.entryX, 1);
         // set the renderable position to bottom center
-        // this.anchorPoint.set(0.5, 1.0);
-        this.body.gravityScale = 0;
+        this.anchorPoint.set(0.5, 1.0);
 
-        this.body.setMaxVelocity(settings.velX || 1, settings.velY || 0);
-        
-        this.body.collisionType = me.collision.types.WORLD_SHAPE;
 
         // set a "enemyObject" type
         // this.body.collisionType = me.collision.types.WORLD_SHAPE;
@@ -42,14 +56,12 @@ class TeleportEntity extends me.Entity {
         // only check for collision against player and world shape
         this.body.setCollisionMask(me.collision.types.PLAYER_OBJECT);
 
-        this.targetTeleportId = settings.teleportTo;
     }
 
     update(dt) {
         if (!this.targetTeleport) {
             const teleports = me.game.world.getChildByName('TeleportEntity');
             this.targetTeleport = teleports.find((teleport) => teleport.id === this.targetTeleportId);
-            console.log(this.targetTeleport);
         }
         super.update(dt);
     }
