@@ -23,7 +23,7 @@ const getTargetSign = (side, sourceEntry, targetEntry) => {
     const sideSign = Math.sign(side);
     const sourceSign = Math.sign(sourceEntry);
     const targetSign = Math.sign(targetEntry);
-    return sideSign;
+    return targetSign * ((sourceSign * sideSign));
 }
 
 export class TeleportEntityComponent {
@@ -56,16 +56,18 @@ export class TeleportEntityComponent {
                 this.teleportSide = xDiff;
             }
             if (anotherTeleport && this.inTeleport) {
-                if (!this.teleportBlock && Math.sign(this.teleportSide) !== Math.sign(xDiff)) {
+                if (!this.teleportBlock && !this.owner.reversed && Math.sign(this.teleportSide) !== Math.sign(xDiff)) {
                     const sideToMove = getTargetSign(this.teleportSide, other.entryX, anotherTeleport.entryX);
-                    const padding = Math.abs(xDiff) + 1;
+                    const padding = Math.abs(xDiff) + 10;
                     const anotherAnchor = getAnchorCoords(anotherTeleport);
                     const newOwnerAnchor = { x: anotherAnchor.x + padding * sideToMove, y: anotherAnchor.y };
                     const newPos = getPosFromAnchorCoords(newOwnerAnchor, this.owner);
                     console.log({ anotherAnchorX: anotherAnchor.x, xDiff, teleportSide: this.teleportSide, newOwnerAnchorX: newOwnerAnchor.x, newPosX: newPos.x, })
                     this.owner.pos.x = newPos.x;
                     this.owner.pos.y = newPos.y;
+                    this.owner.reversed = Math.sign(sideToMove) !== Math.sign(this.teleportSide);
                     this.teleportBlock = true;
+                    this.teleportSide = -sideToMove
                 }
             }
 
@@ -81,11 +83,12 @@ export class TeleportEntityComponent {
                     const inT = this.inTeleport;
                     this.inTeleport = this.toTeleport;
                     this.toTeleport = inT;
-                    this.teleportSide = -this.teleportSide;
+                    // this.teleportSide = -this.teleportSide;
                 } else {
                     this.inTeleport = null;
                     this.toTeleport = null;
                     this.teleportSide = null;
+                    this.owner.reversed = false;
                 } 
             }
         }

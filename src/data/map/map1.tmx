@@ -42,28 +42,28 @@
   </object>
  </objectgroup>
  <objectgroup id="14" name="Teleport">
-  <object id="53" name="TeleportEntity" type="teleport" x="505.462" y="733.812" width="6" height="70">
+  <object id="53" name="TeleportEntity" type="teleport" x="588.462" y="699.812" width="6" height="70">
    <properties>
     <property name="entryX" type="float" value="1"/>
     <property name="entryY" type="float" value="0"/>
     <property name="teleportTo" type="int" value="54"/>
    </properties>
   </object>
-  <object id="54" name="TeleportEntity" type="teleport" x="662.225" y="700.065" width="6" height="70">
+  <object id="54" name="TeleportEntity" type="teleport" x="727.725" y="701.065" width="6" height="70">
    <properties>
     <property name="entryX" type="float" value="-1"/>
     <property name="entryY" type="float" value="0"/>
     <property name="teleportTo" type="int" value="53"/>
    </properties>
   </object>
-  <object id="56" name="TeleportEntity" type="teleport" x="399.832" y="734.162" width="6" height="70">
+  <object id="56" name="TeleportEntity" type="teleport" x="280.332" y="700.162" width="6" height="70">
    <properties>
     <property name="entryX" type="float" value="1"/>
     <property name="entryY" type="float" value="0"/>
     <property name="teleportTo" type="int" value="57"/>
    </properties>
   </object>
-  <object id="57" name="TeleportEntity" type="teleport" x="241.141" y="699.863" width="6" height="70">
+  <object id="57" name="TeleportEntity" type="teleport" x="140.141" y="699.363" width="6" height="70">
    <properties>
     <property name="entryX" type="float" value="1"/>
     <property name="entryY" type="float" value="0"/>

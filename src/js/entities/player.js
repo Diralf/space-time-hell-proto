@@ -96,18 +96,22 @@ class PlayerEntity extends me.Entity {
     update(dt) {
         this.components.forEach((component) => component.update(dt));
 
-        if (me.input.isKeyPressed("left")){
+        if (me.input.isKeyPressed(this.reversed ? 'right' : "left")){
             if (this.body.vel.y === 0) {
                 this.renderable.setCurrentAnimation("walk");
             }
             this.body.force.x = -this.body.maxVel.x;
             this.renderable.flipX(true);
-        } else if (me.input.isKeyPressed("right")) {
+        } else if (me.input.isKeyPressed(this.reversed ? 'left' : "right")) {
             if (this.body.vel.y === 0) {
                 this.renderable.setCurrentAnimation("walk");
             }
             this.body.force.x = this.body.maxVel.x;
             this.renderable.flipX(false);
+        }
+
+        if (this.reversed && this.body.force.x === 0) {
+            this.reversed = false;
         }
 
         if (me.input.isKeyPressed("jump")) {

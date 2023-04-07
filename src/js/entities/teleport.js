@@ -11,10 +11,9 @@ class TeleportEntity extends me.Entity {
         // settings.height = 70;
 
         // // redefine the default shape (used to define path) with a shape matching the renderable
-        // settings.shapes = [
-        //     new me.Rect(12, 0, 6, 70),
-        //     new me.Rect(0, 0, 6, 70),
-        // ];
+        settings.shapes = [
+            new me.Rect(0, 0, 30, 70)
+        ];
 
         // // call the super constructor
         super(x, y, settings);
