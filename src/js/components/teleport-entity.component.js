@@ -19,6 +19,13 @@ const isEntityOverlaps = (entityA, entityB) => {
     return bounds.overlaps(entityA.body.getBounds());
 }
 
+const getTargetSign = (side, sourceEntry, targetEntry) => {
+    const sideSign = Math.sign(side);
+    const sourceSign = Math.sign(sourceEntry);
+    const targetSign = Math.sign(targetEntry);
+    return sideSign;
+}
+
 export class TeleportEntityComponent {
     constructor(owner, settings) {
         this.owner = owner;
@@ -28,6 +35,7 @@ export class TeleportEntityComponent {
         this.teleportSide = null;
         this.sourceSideX = null;
         this.targetSideX = null;
+        this.teleportBlock = false;
     }
 
     /**
@@ -46,39 +54,20 @@ export class TeleportEntityComponent {
                 this.inTeleport = other;
                 this.toTeleport = anotherTeleport;
                 this.teleportSide = xDiff;
-                // this.sourceSideX = otherAnchor.x - other.body.getBounds().width * Math.sign(this.teleportSide);
-                // this.targetSideX = anotherAnchor.x + 1 * Math.sign(this.teleportSide);
             }
-            // console.log(this.owner, response, other, anotherTeleport);
             if (anotherTeleport && this.inTeleport) {
-                console.log({xDiff, yDiff, teleportSide: this.teleportSide});
-                if (Math.sign(this.teleportSide) !== Math.sign(xDiff)) {
+                if (!this.teleportBlock && Math.sign(this.teleportSide) !== Math.sign(xDiff)) {
+                    const sideToMove = getTargetSign(this.teleportSide, other.entryX, anotherTeleport.entryX);
+                    const padding = Math.abs(xDiff) + 1;
                     const anotherAnchor = getAnchorCoords(anotherTeleport);
-                    const newOwnerAnchor = { x: anotherAnchor.x + xDiff + Math.sign(this.teleportSide), y: anotherAnchor.y };
+                    const newOwnerAnchor = { x: anotherAnchor.x + padding * sideToMove, y: anotherAnchor.y };
                     const newPos = getPosFromAnchorCoords(newOwnerAnchor, this.owner);
+                    console.log({ anotherAnchorX: anotherAnchor.x, xDiff, teleportSide: this.teleportSide, newOwnerAnchorX: newOwnerAnchor.x, newPosX: newPos.x, })
                     this.owner.pos.x = newPos.x;
                     this.owner.pos.y = newPos.y;
+                    this.teleportBlock = true;
                 }
             }
-
-            // if (!this.inTeleport) {
-            //     this.inTeleport = other;
-            //     this.teleportSide = xDiff;
-            //     this.sourceSideX = otherAnchor.x - other.body.getBounds().width * Math.sign(this.teleportSide);
-            //     this.targetSideX = anotherAnchor.x + anotherTeleport.body.getBounds().width * Math.sign(this.teleportSide);
-            // }
-            // if (anotherTeleport && this.inTeleport) {
-            //     const sideXDiff = this.sourceSideX - ownerAnchor.x;
-            //     console.log({sideXDiff, teleportSide: this.teleportSide});
-            //     if (Math.sign(this.teleportSide) !== Math.sign(sideXDiff)) {
-            //         // const newTargetSideX = anotherAnchor.x + (anotherTeleport.body.getBounds().width + 2) * Math.sign(-this.teleportSide);
-            //         const newOwnerAnchor = { x: this.targetSideX + Math.sign(this.teleportSide), y: anotherAnchor.y + yDiff };
-            //         const newPos = getPosFromAnchorCoords(newOwnerAnchor, this.owner);
-            //         // this.owner.pos.x = newPos.x;
-            //         // this.owner.pos.y = newPos.y;
-            //         this.newPosition = newPos;
-            //     }
-            // }
 
             return new TeleportCollisionHandler();
         }
@@ -100,6 +89,7 @@ export class TeleportEntityComponent {
                 } 
             }
         }
+        this.teleportBlock = false;
     }
 
     draw(renderer) {
