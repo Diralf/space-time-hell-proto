@@ -6,6 +6,7 @@ var resources = [
      */
     { name: "tileset",         type:"image",   src: "data/img/tileset.png" },
     { name: "background",      type:"image",   src: "data/img/background.png" },
+    { name: "background_layer2",      type:"image",   src: "data/img/background_layer2.png" },
     { name: "clouds",          type:"image",   src: "data/img/clouds.png" },
 
     /* Maps.

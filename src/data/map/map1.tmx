@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="54" height="30" tilewidth="35" tileheight="35" infinite="0" backgroundcolor="#d0f4f7" nextlayerid="15" nextobjectid="58">
+<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="54" height="30" tilewidth="35" tileheight="35" infinite="0" backgroundcolor="#d0f4f7" nextlayerid="16" nextobjectid="58">
  <tileset firstgid="1" source="tileset.tsx"/>
- <imagelayer id="1" name="Background" y="538" offsetx="0" offsety="538">
+ <imagelayer id="1" name="Background" y="538" offsetx="4" offsety="458">
   <image source="../img/background.png" width="1024" height="512"/>
+  <properties>
+   <property name="anchorPoint" value="json:{&quot;x&quot;:0,&quot;y&quot;:1}"/>
+   <property name="ratio" value="0.125"/>
+   <property name="repeat" value="repeat-x"/>
+  </properties>
+ </imagelayer>
+ <imagelayer id="15" name="Image Layer 3" offsetx="9" offsety="238">
+  <image source="../img/background_layer2.png" width="1536" height="768"/>
   <properties>
    <property name="anchorPoint" value="json:{&quot;x&quot;:0,&quot;y&quot;:1}"/>
    <property name="ratio" value="0.25"/>
