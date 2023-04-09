@@ -170,9 +170,6 @@ class PlayerEntity extends me.Entity {
      * colision handler
      */
     onCollision(response, other) {
-        if (other.type === 'teleport_1') {
-            console.log(other, me.collision.types);
-        }
         const componentHandler = this.components
             .filter(component => component.getCollisionHandler)
             .map(component => component.getCollisionHandler(response, other))
@@ -204,6 +201,9 @@ class PlayerEntity extends me.Entity {
 
     draw(renderer) {
         super.draw(renderer);
+
+        // console.log(renderer);
+        // renderer.setMask(new me.Rect(0, 0, 40, -40));
         
         this.components.forEach((component) => component.draw(renderer));
     }
