@@ -34,8 +34,13 @@ const getMask = (entity, sprite, teleport) => {
     const xDiff = teleportAnchor.x - entityAnchor.x;
     const rightSide = xDiff > 0 ? bounds.max.x - xDiff : 0;
     const leftSide = xDiff < 0 ? bounds.min.x - xDiff : 0;
-    console.log({ leftSide, rightSide, bounds, xDiff, spritePosX: sprite.pos.x })
-    return new me.Rect(bounds.min.x - leftSide, bounds.min.y, bounds.width + leftSide - rightSide, bounds.height);
+    // console.log({ leftSide, rightSide, bounds, xDiff, spritePosX: sprite.pos.x });
+    return {
+        originalMask: new me.Rect(bounds.min.x - leftSide, bounds.min.y, bounds.width + leftSide - rightSide, bounds.height),
+        secondMask: Math.abs(leftSide) > 0
+            ? new me.Rect(bounds.min.x, bounds.min.y, -leftSide, bounds.height)
+            : new me.Rect(bounds.max.x - rightSide, bounds.min.y, rightSide, bounds.height)
+    };
 }
 
 export class TeleportEntityComponent {
@@ -45,9 +50,11 @@ export class TeleportEntityComponent {
         this.inTeleport = null;
         this.toTeleport = null;
         this.teleportSide = null;
+        this.sideToMove = null;
         this.sourceSideX = null;
         this.targetSideX = null;
         this.teleportBlock = false;
+        this.secondMask = null;
     }
 
     /**
@@ -55,7 +62,7 @@ export class TeleportEntityComponent {
      */
     getCollisionHandler(response, other) {
         if (other.body.collisionType === me.collision.types.WORLD_SHAPE && other.type === 'teleport') {
-            console.log(this.owner.renderable.clone());
+            console.log(this.owner.renderable);
             const anotherTeleport = other?.targetTeleport;
             const ownerAnchor = getAnchorCoords(this.owner);
             const otherAnchor = getAnchorCoords(other);
@@ -67,6 +74,7 @@ export class TeleportEntityComponent {
                 this.inTeleport = other;
                 this.toTeleport = anotherTeleport;
                 this.teleportSide = xDiff;
+                this.sideToMove = getTargetSign(this.teleportSide, other.entryX, anotherTeleport.entryX);
             }
             if (anotherTeleport && this.inTeleport) {
                 if (!this.teleportBlock && !this.owner.reversed && Math.sign(this.teleportSide) !== Math.sign(xDiff)) {
@@ -74,13 +82,18 @@ export class TeleportEntityComponent {
                     const padding = Math.abs(xDiff) + 10;
                     const anotherAnchor = getAnchorCoords(anotherTeleport);
                     const newOwnerAnchor = { x: anotherAnchor.x + padding * sideToMove, y: anotherAnchor.y };
-                    const newPos = getPosFromAnchorCoords(newOwnerAnchor, this.owner);
-                    console.log({ anotherAnchorX: anotherAnchor.x, xDiff, teleportSide: this.teleportSide, newOwnerAnchorX: newOwnerAnchor.x, newPosX: newPos.x, })
+                    // const newPos = getPosFromAnchorCoords(newOwnerAnchor, this.owner);
+                    // console.log({ anotherAnchorX: anotherAnchor.x, xDiff, teleportSide: this.teleportSide, newOwnerAnchorX: newOwnerAnchor.x, newPosX: newPos.x, })
+                    const newPos = {
+                        x: this.owner.pos.x + anotherAnchor.x - otherAnchor.x,
+                        y: this.owner.pos.y + anotherAnchor.y - otherAnchor.y,
+                    }
                     this.owner.pos.x = newPos.x;
                     this.owner.pos.y = newPos.y;
                     this.owner.reversed = Math.sign(sideToMove) !== Math.sign(this.teleportSide);
                     this.teleportBlock = true;
                     this.teleportSide = -sideToMove
+                    this.owner.renderable.mask = undefined;
                 }
             }
 
@@ -91,38 +104,53 @@ export class TeleportEntityComponent {
 
     update(dt) {
         if (this.inTeleport) {
-            this.owner.renderable.mask = getMask(this.owner, this.owner.renderable, this.inTeleport);
+            const { originalMask, secondMask } = getMask(this.owner, this.owner.renderable, this.inTeleport);
+            this.owner.renderable.mask = originalMask;
+            this.secondMask = secondMask;
             if (!isEntityOverlaps(this.owner, this.inTeleport)) {
                 if (isEntityOverlaps(this.owner, this.toTeleport)) {
                     const inT = this.inTeleport;
                     this.inTeleport = this.toTeleport;
                     this.toTeleport = inT;
-                    // this.teleportSide = -this.teleportSide;
+                    const { originalMask, secondMask } = getMask(this.owner, this.owner.renderable, this.inTeleport);
+                    this.owner.renderable.mask = originalMask;
+                    this.secondMask = secondMask;
                 } else {
                     this.inTeleport = null;
                     this.toTeleport = null;
                     this.teleportSide = null;
                     this.owner.reversed = false;
-                    const bounds = this.owner.renderable.getBounds();
-                    this.owner.renderable.mask = new me.Rect(bounds.min.x, bounds.min.y, bounds.width, bounds.height);;
+                    this.owner.renderable.mask = undefined;
+                    this.secondMask = null;
                 } 
             }
+            
         }
         this.teleportBlock = false;
     }
 
     draw(renderer) {
-        // if (this.inTeleport) {
-        //     if (this.teleportSide > 0) {
-        //         renderer.setColor('lime');
-        //     } else {
-        //         renderer.setColor('blue');
-        //     }
-        //     renderer.stroke(new me.Rect(0, 0, 20, -20), true);
+        if (this.toTeleport) {
+            renderer.save();
+            const orignalMask = this.owner.renderable.mask;
+            this.owner.renderable.mask = this.secondMask;
 
-        //     const ownerAnchor = getAnchorCoords(this.owner);
-        //     renderer.stroke(new me.Rect(this.sourceSideX - ownerAnchor.x, 200, 1, -400), true);
-        //     renderer.stroke(new me.Rect(this.targetSideX - ownerAnchor.x, 200, 1, -400), true);
-        // }
-    }
+            const ownerAnchor = getAnchorCoords(this.owner);
+            const otherAnchor = getAnchorCoords(this.inTeleport);
+            const anotherAnchor = getAnchorCoords(this.toTeleport);
+
+            // renderer.translate(this.toTeleport.pos.x - this.owner.renderable.pos.x - this.owner.pos.x, newPos.y - this.owner.renderable.pos.y - this.owner.pos.y);
+            renderer.translate(
+                anotherAnchor.x - otherAnchor.x,
+                anotherAnchor.y - otherAnchor.y,
+            );
+
+            this.owner.renderable.preDraw(renderer);
+            this.owner.renderable.draw(renderer);
+            this.owner.renderable.postDraw(renderer);
+
+            this.owner.renderable.mask = orignalMask;
+            renderer.restore();
+        }
+    } 
 }
