@@ -72,16 +72,26 @@ class PlayerEntity extends me.Entity {
 
         // set a renderable
         this.renderable = game.texture.createAnimationFromName([
-            "character/walk0001", "character/walk0002", "character/walk0003",
-            "character/walk0004", "character/walk0005", "character/walk0006",
-            "character/walk0007", "character/walk0008", "character/walk0009",
-            "character/walk0010", "character/walk0011"
+            "character/walk0001", "character/walk0002", "character/jump0001",
+            "character/dwalk0",
+            "character/dwalk1",
+            "character/dwalk2",
+            "character/dwalk3",
+            "character/dwalk4",
+            "character/dwalk5",
         ]);
 
         // define a basic walking animatin
         this.renderable.addAnimation("stand", [{ name: "character/walk0001", delay: 100 }]);
-        this.renderable.addAnimation("walk",  [{ name: "character/walk0001", delay: 100 }, { name: "character/walk0002", delay: 100 }, { name: "character/walk0003", delay: 100 }]);
-        this.renderable.addAnimation("jump",  [{ name: "character/walk0004", delay: 150 }, { name: "character/walk0005", delay: 150 }, { name: "character/walk0006", delay: 150 }, { name: "character/walk0007", delay: 150 }, { name: "character/walk0001", delay: 150 }]);
+        this.renderable.addAnimation("walk",  [
+            { name: "character/dwalk0", delay: 100 }, 
+            { name: "character/dwalk1", delay: 100 }, 
+            { name: "character/dwalk2", delay: 100 }, 
+            { name: "character/dwalk3", delay: 100 }, 
+            { name: "character/dwalk4", delay: 100 }, 
+            { name: "character/dwalk5", delay: 100 }, 
+        ]);
+        this.renderable.addAnimation("jump",  ['character/jump0001']);
 
         // set as default
         this.renderable.setCurrentAnimation("walk");
