@@ -41,7 +41,7 @@
   </data>
  </layer>
  <objectgroup color="#00ff00" id="5" name="Player">
-  <object id="16" name="mainPlayer" x="35.4557" y="912.957" width="35" height="65"/>
+  <object id="16" name="mainPlayer" x="442.122" y="738.957" width="35" height="65"/>
   <object id="17" name="me.Trigger" x="1830" y="810" width="50" height="100">
    <properties>
     <property name="duration" value="150"/>

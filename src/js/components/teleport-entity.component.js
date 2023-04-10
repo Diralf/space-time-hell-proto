@@ -62,7 +62,6 @@ export class TeleportEntityComponent {
      */
     getCollisionHandler(response, other) {
         if (other.body.collisionType === me.collision.types.WORLD_SHAPE && other.type === 'teleport') {
-            console.log(this.owner.renderable);
             const anotherTeleport = other?.targetTeleport;
             const ownerAnchor = getAnchorCoords(this.owner);
             const otherAnchor = getAnchorCoords(other);
@@ -82,10 +81,13 @@ export class TeleportEntityComponent {
                     const padding = Math.abs(xDiff) + 10;
                     const anotherAnchor = getAnchorCoords(anotherTeleport);
                     const newOwnerAnchor = { x: anotherAnchor.x + padding * sideToMove, y: anotherAnchor.y };
+                    const isReversedDirection = Math.sign(sideToMove) !== Math.sign(this.teleportSide);
+                    const reversePositionX = isReversedDirection ? xDiff * 2 : 0;
                     // const newPos = getPosFromAnchorCoords(newOwnerAnchor, this.owner);
                     // console.log({ anotherAnchorX: anotherAnchor.x, xDiff, teleportSide: this.teleportSide, newOwnerAnchorX: newOwnerAnchor.x, newPosX: newPos.x, })
+                    console.log({ teleportSide: this.teleportSide, sideToMove, xDiff, reversePositionX });
                     const newPos = {
-                        x: this.owner.pos.x + anotherAnchor.x - otherAnchor.x,
+                        x: this.owner.pos.x + anotherAnchor.x - otherAnchor.x + reversePositionX,
                         y: this.owner.pos.y + anotherAnchor.y - otherAnchor.y,
                     }
                     this.owner.pos.x = newPos.x;
