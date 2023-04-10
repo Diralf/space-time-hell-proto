@@ -5,10 +5,10 @@ import { setLayerOpacity } from '../utils/level';
 import { changeDimension } from '../utils/dimension';
 import { PlatformCollisionHandler } from '../collision-handlers/platform.collision-handler';
 import { SlopeCollisionHandler } from '../collision-handlers/slope.collision-handler';
-import { TeleportCollisionHandler } from '../collision-handlers/teleport.collision-handler';
+import { TeleportCollisionHandler } from '../components/teleport-entity/teleport.collision-handler';
 import { EnemyCollisionHandler } from '../collision-handlers/enemy.collision-handler';
 import { getCollisionHandler } from '../collision-handlers/get-collision-handler.util';
-import { TeleportEntityComponent } from '../components/teleport-entity.component';
+import { TeleportEntityComponent } from '../components/teleport-entity/teleport-entity.component';
 
 class PlayerEntity extends me.Entity {
     constructor(x, y, settings) {
