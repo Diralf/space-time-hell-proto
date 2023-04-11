@@ -8,6 +8,48 @@ export class BaseTeleportHandler {
         this.isActive = false;
     }
 
+    onInsideTeleport() {
+        if (this.targetTeleport && this.sourceTeleport) {
+            if (this.shouldWrap()) {
+                const newPos = this.getTargetPosition();
+                this.entity.pos.x = newPos.x;
+                this.entity.pos.y = newPos.y;
+                this.onJustTeleported();
+            }
+        }
+    }
+
+    shouldWrap() {
+        const entityAnchor = getAnchorCoords(this.entity);
+        const sourceAnchor = getAnchorCoords(this.sourceTeleport);
+        const xDiff = sourceAnchor.x - entityAnchor.x;
+
+        return !this.isTeleportBlocked && Math.sign(this.sourceTeleportSide) !== Math.sign(xDiff);
+    }
+
+    getTargetPosition() {
+        const sourceAnchor = getAnchorCoords(this.sourceTeleport);
+        const targetAnchor = getAnchorCoords(this.targetTeleport);
+        return {
+            x: this.entity.pos.x + targetAnchor.x - sourceAnchor.x,
+            y: this.entity.pos.y + targetAnchor.y - sourceAnchor.y,
+        };
+    }
+
+    onJustTeleported() {
+        const sideToMove = getTargetSign(this.sourceTeleportSide, this.sourceTeleport.entryX, this.targetTeleport.entryX);
+        this.isTeleportBlocked = true;
+        this.sourceTeleportSide = -sideToMove
+        this.entity.renderable.mask = undefined;
+    }
+
+    onPostTeleported() {
+        const inT = this.sourceTeleport;
+        this.sourceTeleport = this.targetTeleport;
+        this.targetTeleport = inT;
+        this.isTeleportBlocked = false;
+    }
+
     onTeleportEnter(sourceTeleport) {
         this.isActive = true;
         const entityAnchor = getAnchorCoords(this.entity);
@@ -46,13 +88,6 @@ export class BaseTeleportHandler {
 
     isInTargetTeleport() {
         return isEntityOverlaps(this.entity, this.targetTeleport);
-    }
-
-    onPostTeleported() {
-        const inT = this.sourceTeleport;
-        this.sourceTeleport = this.targetTeleport;
-        this.targetTeleport = inT;
-        this.isTeleportBlocked = false;
     }
 
     onMaskUpdate() {
