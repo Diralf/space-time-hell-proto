@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="54" height="30" tilewidth="35" tileheight="35" infinite="0" backgroundcolor="#d0f4f7" nextlayerid="17" nextobjectid="61">
+<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="54" height="30" tilewidth="35" tileheight="35" infinite="0" backgroundcolor="#d0f4f7" nextlayerid="17" nextobjectid="62">
  <tileset firstgid="1" source="tileset.tsx"/>
  <tileset firstgid="253" source="dino.tsx"/>
  <imagelayer id="1" name="Background" y="538" offsetx="4" offsety="458">
@@ -82,6 +82,13 @@
     <property name="entryX" type="float" value="1"/>
     <property name="entryY" type="float" value="0"/>
     <property name="teleportTo" type="int" value="56"/>
+   </properties>
+  </object>
+  <object id="61" name="TeleportEntity" type="teleport" x="91" y="908.333" width="6" height="70">
+   <properties>
+    <property name="entryX" type="float" value="1"/>
+    <property name="entryY" type="float" value="0"/>
+    <property name="teleportTo" type="int" value="0"/>
    </properties>
   </object>
  </objectgroup>
