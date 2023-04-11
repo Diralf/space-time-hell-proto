@@ -2,6 +2,7 @@ import * as me from 'melonjs';
 import { TeleportCollisionHandler } from "./teleport.collision-handler";
 import { ForwardTeleportHandler } from './forward.teleport-handler';
 import { ReverseTeleportHandler } from './reverse.teleport-handler';
+import game from '../../game';
 
 export class TeleportEntityComponent {
     constructor(owner, settings) {
@@ -13,7 +14,7 @@ export class TeleportEntityComponent {
      * get colision handler
      */
     getCollisionHandler(response, other) {
-        if (other.body.collisionType === me.collision.types.WORLD_SHAPE && other.type === 'teleport') {
+        if (other.body.collisionType === game.collisionTypes.TELEPORT) {
             if (!this.teleport) {
                 this.onTeleportEnter(other);
             }

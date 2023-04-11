@@ -1,3 +1,5 @@
+import * as me from 'melonjs';
+
 /**
  * hold all game specific data
  */
@@ -12,7 +14,12 @@ var game = {
     },
 
     // a reference to the texture atlas
-    texture : null
+    texture : null,
+
+    collisionTypes: {
+        TELEPORT : me.collision.types.USER << 0,
+        CANNON   : me.collision.types.USER << 1,
+    },
 };
 
 export default game;

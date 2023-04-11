@@ -235,17 +235,59 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">assets/cannon/arrow-0001.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.514286,0.471429</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>18,18,35,35</rect>
+                <key>scale9Paddings</key>
+                <rect>18,18,35,35</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">assets/cannon/wood-cannon-0001.png</key>
+            <key type="filename">assets/character/dwalk0.png</key>
+            <key type="filename">assets/character/dwalk1.png</key>
+            <key type="filename">assets/character/dwalk2.png</key>
+            <key type="filename">assets/character/dwalk3.png</key>
+            <key type="filename">assets/character/dwalk4.png</key>
+            <key type="filename">assets/character/dwalk5.png</key>
+            <key type="filename">assets/character/jump0001.png</key>
+            <key type="filename">assets/teleport/teleport-001.png</key>
+            <key type="filename">assets/teleport/teleport-002.png</key>
+            <key type="filename">assets/teleport/teleport-003.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,1</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>18,18,35,35</rect>
+                <key>scale9Paddings</key>
+                <rect>18,18,35,35</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">assets/character/walk0001.png</key>
             <key type="filename">assets/character/walk0002.png</key>
-            <key type="filename">assets/character/walk0003.png</key>
-            <key type="filename">assets/character/walk0004.png</key>
-            <key type="filename">assets/character/walk0005.png</key>
-            <key type="filename">assets/character/walk0006.png</key>
-            <key type="filename">assets/character/walk0007.png</key>
-            <key type="filename">assets/character/walk0008.png</key>
-            <key type="filename">assets/character/walk0009.png</key>
-            <key type="filename">assets/character/walk0010.png</key>
-            <key type="filename">assets/character/walk0011.png</key>
+            <key type="filename">assets/old_character/walk0001.png</key>
+            <key type="filename">assets/old_character/walk0002.png</key>
+            <key type="filename">assets/old_character/walk0003.png</key>
+            <key type="filename">assets/old_character/walk0004.png</key>
+            <key type="filename">assets/old_character/walk0005.png</key>
+            <key type="filename">assets/old_character/walk0006.png</key>
+            <key type="filename">assets/old_character/walk0007.png</key>
+            <key type="filename">assets/old_character/walk0008.png</key>
+            <key type="filename">assets/old_character/walk0009.png</key>
+            <key type="filename">assets/old_character/walk0010.png</key>
+            <key type="filename">assets/old_character/walk0011.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,1</point_f>
@@ -348,23 +390,6 @@
                 <rect>11,7,21,13</rect>
                 <key>scale9Paddings</key>
                 <rect>11,7,21,13</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">assets/teleport/teleport-001.png</key>
-            <key type="filename">assets/teleport/teleport-002.png</key>
-            <key type="filename">assets/teleport/teleport-003.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,1</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>18,18,35,35</rect>
-                <key>scale9Paddings</key>
-                <rect>18,18,35,35</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

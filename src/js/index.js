@@ -7,6 +7,8 @@ import { SlimeEnemyEntity, FlyEnemyEntity } from './entities/enemies.js';
 import CoinEntity from './entities/coin.js';
 import PlayScreen from './screens/play.js';
 import TeleportEntity from './entities/teleport';
+import CannonEntity from './entities/cannon';
+import ArrowEntity from './entities/arrow';
 
 
 /**
@@ -46,6 +48,8 @@ export default function onload() {
         me.pool.register("FlyEntity", FlyEnemyEntity);
         me.pool.register("CoinEntity", CoinEntity, true);
         me.pool.register("TeleportEntity", TeleportEntity);
+        me.pool.register("CannonEntity", CannonEntity);
+        me.pool.register("ArrowEntity", ArrowEntity, true);
 
         // load the texture atlas file
         // this will be used by renderable object later

@@ -32,7 +32,7 @@ class TeleportEntity extends me.Entity {
 
         this.body.setMaxVelocity(settings.velX || 1, settings.velY || 0);
         
-        this.body.collisionType = me.collision.types.WORLD_SHAPE;
+        this.body.collisionType = game.collisionTypes.TELEPORT;
         // this.body.addShape(new me.Rect(6, 0, 6, 70));
 
         // set a renderable
