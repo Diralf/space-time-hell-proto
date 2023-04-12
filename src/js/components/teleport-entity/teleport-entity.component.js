@@ -5,7 +5,7 @@ import { ReverseTeleportHandler } from './reverse.teleport-handler';
 import game from '../../game';
 
 export class TeleportEntityComponent {
-    constructor(owner, settings) {
+    constructor(owner) {
         this.owner = owner;
         this.teleport = null;
     }

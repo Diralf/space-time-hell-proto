@@ -57,6 +57,7 @@ export default function onload() {
             me.loader.getJSON("texture"),
             me.loader.getImage("texture")
         );
+        game.particleImage = me.loader.getImage("default-particle");
 
         // add some keyboard shortcuts
         me.event.on(me.event.KEYDOWN, (action, keyCode /*, edge */) => {

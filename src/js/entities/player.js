@@ -16,7 +16,7 @@ class PlayerEntity extends me.Entity {
         super(x, y , settings);
 
         this.components = [
-            new TeleportEntityComponent(this, settings),
+            new TeleportEntityComponent(this),
         ];
 
         // set a "player object" type

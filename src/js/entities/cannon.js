@@ -34,6 +34,9 @@ class CannonEntity extends me.Entity {
         // only check for collision against player and world shape
         this.body.setCollisionMask(me.collision.types.WORLD_SHAPE | me.collision.types.PLAYER_OBJECT);
         
+        me.timer.setInterval(() => {
+            this.shoot();
+        }, 1000, true);
     }
 
     onCollision(response, other) {
@@ -41,15 +44,15 @@ class CannonEntity extends me.Entity {
             case me.collision.types.WORLD_SHAPE:
                 return true;
             case me.collision.types.PLAYER_OBJECT:
-                if (!this.bullet?.alive) {
-                    this.bullet = me.pool.pull("ArrowEntity", this.pos.x, this.pos.y);
-                    me.game.world.addChild(this.bullet);
-                    console.log(this.bullet);
-                }
                 return false;
             default:
                 return true;
         }
+    }
+
+    shoot() {
+        const bullet = me.pool.pull("ArrowEntity", this.pos.x, this.pos.y);
+        me.game.world.addChild(bullet);
     }
 }
 

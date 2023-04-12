@@ -53,7 +53,7 @@ class TeleportEntity extends me.Entity {
         // this.body.collisionType = me.collision.types.WORLD_SHAPE;
 
         // only check for collision against player and world shape
-        this.body.setCollisionMask(me.collision.types.PLAYER_OBJECT);
+        this.body.setCollisionMask(me.collision.types.PLAYER_OBJECT | game.collisionTypes.BULLET);
 
     }
 

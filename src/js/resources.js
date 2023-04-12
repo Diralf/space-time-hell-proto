@@ -4,11 +4,12 @@ var resources = [
      * @example
      * { name: "example", type:"image", src: "data/img/example.png" },
      */
-    { name: "tileset",         type:"image",   src: "data/img/tileset.png" },
-    { name: "dino",         type:"image",   src: "data/img/dino.png" },
-    { name: "background",      type:"image",   src: "data/img/background.png" },
-    { name: "background_layer2",      type:"image",   src: "data/img/background_layer2.png" },
-    { name: "clouds",          type:"image",   src: "data/img/clouds.png" },
+    { name: "tileset",            type:"image",   src: "data/img/tileset.png" },
+    { name: "dino",               type:"image",   src: "data/img/dino.png" },
+    { name: "background",         type:"image",   src: "data/img/background.png" },
+    { name: "background_layer2",  type:"image",   src: "data/img/background_layer2.png" },
+    { name: "clouds",             type:"image",   src: "data/img/clouds.png" },
+    { name: "default-particle",   type:"image",   src: "data/img/default-particle.png" },
 
     /* Maps.
      * @example
@@ -25,7 +26,7 @@ var resources = [
      * { name: "example01", type: "tsx", src: "data/map/example01.json" },
      */
     { name: "tileset",         type: "tsx",    src: "data/map/tileset.json" },
-    { name: "dino",         type: "tsx",    src: "data/map/dino.tsx" },
+    { name: "dino",            type: "tsx",    src: "data/map/dino.tsx" },
 
 
     /* Background music.
@@ -57,7 +58,7 @@ var resources = [
     * { name: "example_fnt", type: "image", src: "data/img/example_fnt.png" },
     * { name: "example_fnt", type: "binary", src: "data/img/example_fnt.fnt" },
     */
-    { name: "PressStart2P", type:"image", src: "data/fnt/PressStart2P.png" },
+    { name: "PressStart2P", type:"image",  src: "data/fnt/PressStart2P.png" },
     { name: "PressStart2P", type:"binary", src: "data/fnt/PressStart2P.fnt"}
 ];
 

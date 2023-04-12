@@ -93,8 +93,7 @@
   </object>
  </objectgroup>
  <objectgroup color="#ffaa00" id="17" name="Cannon">
-  <object id="62" name="CannonEntity" x="280.667" y="730.667" width="68.6667" height="38"/>
-  <object id="67" name="ArrowEntity" x="414.667" y="450"/>
+  <object id="62" name="CannonEntity" x="70" y="730" width="68.6667" height="38"/>
  </objectgroup>
  <objectgroup color="#ffff00" id="6" name="Coins">
   <object id="3" name="CoinEntity" x="840" y="805" width="35" height="35"/>
