@@ -1,23 +1,17 @@
 import * as me from 'melonjs';
 import game from './../game.js';
 import { Dimension } from '../constants/dimension.js';
-import { setLayerOpacity } from '../utils/level';
 import { changeDimension } from '../utils/dimension';
-import { PlatformCollisionHandler } from '../collision-handlers/platform.collision-handler';
-import { SlopeCollisionHandler } from '../collision-handlers/slope.collision-handler';
-import { TeleportCollisionHandler } from '../components/teleport-entity/teleport.collision-handler';
-import { EnemyCollisionHandler } from '../collision-handlers/enemy.collision-handler';
 import { getCollisionHandler } from '../collision-handlers/get-collision-handler.util';
 import { TeleportEntityComponent } from '../components/teleport-entity/teleport-entity.component';
+import { WithComponents } from '../components/base/with-components.decorator';
 
-class PlayerEntity extends me.Entity {
+const Components = WithComponents([TeleportEntityComponent]);
+
+class PlayerEntity extends Components(me.Entity) {
     constructor(x, y, settings) {
         // call the constructor
         super(x, y , settings);
-
-        this.components = [
-            new TeleportEntityComponent(this),
-        ];
 
         // set a "player object" type
         this.body.collisionType = me.collision.types.PLAYER_OBJECT;
@@ -104,8 +98,6 @@ class PlayerEntity extends me.Entity {
      ** update the force applied
      */
     update(dt) {
-        this.components.forEach((component) => component.update(dt));
-
         if (me.input.isKeyPressed(this.reversed ? 'right' : "left")){
             if (this.body.vel.y === 0) {
                 this.renderable.setCurrentAnimation("walk");
@@ -180,10 +172,7 @@ class PlayerEntity extends me.Entity {
      * colision handler
      */
     onCollision(response, other) {
-        const componentHandler = this.components
-            .filter(component => component.getCollisionHandler)
-            .map(component => component.getCollisionHandler(response, other))
-            [0];
+        const componentHandler = super.getCollisionHandler?.(response, other);
         const handler = componentHandler ?? getCollisionHandler(response, other);
         return handler.handle(this, response, other);
     }
@@ -207,15 +196,6 @@ class PlayerEntity extends me.Entity {
             me.game.viewport.fadeIn("#FFFFFF", 75);
             me.audio.play("die", false);
         }
-    }
-
-    draw(renderer) {
-        super.draw(renderer);
-
-        // console.log(renderer);
-        // renderer.setMask(new me.Rect(0, 0, 40, -40));
-        
-        this.components.forEach((component) => component.draw(renderer));
     }
 };
 

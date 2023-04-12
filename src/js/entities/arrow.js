@@ -1,8 +1,11 @@
 import * as me from 'melonjs';
 import game from './../game.js';
 import { TeleportEntityComponent } from '../components/teleport-entity/teleport-entity.component';
+import { WithComponents } from '../components/base/with-components.decorator';
 
-class ArrowEntity extends me.Entity {
+const Components = WithComponents([TeleportEntityComponent]);
+
+class ArrowEntity extends Components(me.Entity) {
     constructor(x, y, settings = {}) {
         // save the area size defined in Tiled
         const width = 40;
@@ -32,10 +35,6 @@ class ArrowEntity extends me.Entity {
         this.body.gravityScale = 0;
         
         this.body.collisionType = game.collisionTypes.BULLET | me.collision.types.ENEMY_OBJECT;
-
-        this.components = [
-            new TeleportEntityComponent(this),
-        ];
         
         this.init();
     }
@@ -46,11 +45,6 @@ class ArrowEntity extends me.Entity {
         this.shift(x, y);
         // only check for collision against player
         this.init();
-    }
-
-    update(dt) {
-        super.update(dt);
-        this.components.forEach((component) => component.update(dt));
     }
 
     init() {
@@ -69,10 +63,7 @@ class ArrowEntity extends me.Entity {
     }
 
     onCollision(response, other) {
-        const componentHandler = this.components
-            .filter(component => component.getCollisionHandler)
-            .map(component => component.getCollisionHandler(response, other))
-            [0];
+        const componentHandler = super.getCollisionHandler?.(response, other);
         if (componentHandler) {
             return componentHandler.handle(this, response, other);
         }
@@ -91,7 +82,7 @@ class ArrowEntity extends me.Entity {
             // set dead animation
             // this.renderable.setCurrentAnimation("dead");
 
-            var emitter = new me.ParticleEmitter(this.centerX, this.centerY, {
+            var emitter = new me.ParticleEmitter(this.centerX + this.width / 2, this.centerY, {
                 width: this.width / 4,
                 height : this.height / 4,
                 tint: this.particleTint,
@@ -113,12 +104,11 @@ class ArrowEntity extends me.Entity {
             // game.data.score += 150;
 
             // me.game.world.removeChild(emitter);
-        }
-    }
 
-    draw(renderer) {
-        super.draw(renderer);
-        this.components.forEach((component) => component.draw(renderer));
+            me.timer.setTimeout(() => {
+                me.game.world.removeChild(emitter);
+            }, 100);
+        }
     }
 }
 
