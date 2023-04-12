@@ -35,7 +35,7 @@ class CannonEntity extends me.Entity {
         this.body.setCollisionMask(me.collision.types.WORLD_SHAPE | me.collision.types.PLAYER_OBJECT);
         
         me.timer.setInterval(() => {
-            this.shoot();
+            // this.shoot();
         }, 1000, true);
     }
 

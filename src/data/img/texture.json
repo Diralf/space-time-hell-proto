@@ -263,28 +263,28 @@
 },
 {
 	"filename": "teleport/teleport-001",
-	"frame": {"x":239,"y":83,"w":4,"h":70},
+	"frame": {"x":239,"y":83,"w":6,"h":70},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":33,"y":0,"w":4,"h":70},
+	"spriteSourceSize": {"x":32,"y":0,"w":6,"h":70},
 	"sourceSize": {"w":70,"h":70},
 	"pivot": {"x":0.5,"y":1}
 },
 {
 	"filename": "teleport/teleport-002",
-	"frame": {"x":239,"y":83,"w":4,"h":70},
+	"frame": {"x":239,"y":83,"w":6,"h":70},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":33,"y":0,"w":4,"h":70},
+	"spriteSourceSize": {"x":32,"y":0,"w":6,"h":70},
 	"sourceSize": {"w":70,"h":70},
 	"pivot": {"x":0.5,"y":1}
 },
 {
 	"filename": "teleport/teleport-003",
-	"frame": {"x":239,"y":83,"w":4,"h":70},
+	"frame": {"x":239,"y":83,"w":6,"h":70},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":33,"y":0,"w":4,"h":70},
+	"spriteSourceSize": {"x":32,"y":0,"w":6,"h":70},
 	"sourceSize": {"w":70,"h":70},
 	"pivot": {"x":0.5,"y":1}
 },
@@ -349,6 +349,6 @@
 	"format": "RGBA8888",
 	"size": {"w":249,"h":785},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:e27174f0cbfba96f3def6e95a3dde143:a09d9b7ffda04a9b3ab3fbb9a4890656:88db1022cd6b660616541d2788fcd4f7$"
+	"smartupdate": "$TexturePacker:SmartUpdate:1c6107dba1f8f45c12f9f1e5ca5f33e8:847a02702c127d94800f5446b9d489fe:88db1022cd6b660616541d2788fcd4f7$"
 }
 }
