@@ -30,7 +30,7 @@ class ArrowEntity extends Components(me.Entity) {
         this.renderable.setCurrentAnimation("idle");
         this.anchorPoint.set(0.5, 0.5);
 
-        this.body.setMaxVelocity(2, 15);
+        this.body.setMaxVelocity(5, 15);
         this.body.setFriction(0, 0);
         this.body.gravityScale = 0;
         
@@ -48,7 +48,7 @@ class ArrowEntity extends Components(me.Entity) {
     }
 
     init() {
-        this.body.force.set(2, 0);
+        this.body.force.set(5, 0);
         this.body.setCollisionMask(me.collision.types.WORLD_SHAPE | me.collision.types.PLAYER_OBJECT | game.collisionTypes.TELEPORT);
         this.body.setStatic(false);
         this.alive = true;
