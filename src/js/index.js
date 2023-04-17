@@ -9,6 +9,7 @@ import PlayScreen from './screens/play.js';
 import TeleportEntity from './entities/teleport';
 import CannonEntity from './entities/cannon';
 import ArrowEntity from './entities/arrow';
+import WoodBoxEntity from './entities/wood-box';
 
 
 /**
@@ -49,6 +50,7 @@ export default function onload() {
         me.pool.register("CoinEntity", CoinEntity, true);
         me.pool.register("TeleportEntity", TeleportEntity);
         me.pool.register("CannonEntity", CannonEntity);
+        me.pool.register("WoodBoxEntity", WoodBoxEntity);
         me.pool.register("ArrowEntity", ArrowEntity, true);
 
         // load the texture atlas file

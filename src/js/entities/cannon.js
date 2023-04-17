@@ -25,11 +25,12 @@ class CannonEntity extends me.Entity {
         // this.renderable.scale(this.entryX, 1);
         // set the renderable position to bottom center
         this.anchorPoint.set(0.5, 1.0);
+        this.renderable.anchorPoint.set(0.5, 1.0);
 
 
         // set a "enemyObject" type
         // this.body.collisionType = me.collision.types.WORLD_SHAPE;
-        this.body.collisionType = me.collision.types.WORLD_SHAPE | game.collisionTypes.CANNON;
+        this.body.collisionType = me.collision.types.WORLD_SHAPE | game.collisionTypes.PUSHABLE;
 
         // only check for collision against player and world shape
         this.body.setCollisionMask(me.collision.types.WORLD_SHAPE | me.collision.types.PLAYER_OBJECT);

@@ -21,6 +21,8 @@ var game = {
         TELEPORT : me.collision.types.USER << 0,
         CANNON   : me.collision.types.USER << 1,
         BULLET   : me.collision.types.USER << 2,
+        PICKABLE : me.collision.types.USER << 3,
+        PUSHABLE : me.collision.types.USER << 4,
     },
 };
 

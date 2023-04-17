@@ -92,6 +92,8 @@ class PlayerEntity extends Components(me.Entity) {
 
         // set the renderable position to bottom center
         this.anchorPoint.set(0.5, 1.0);
+        this.renderable.anchorPoint.set(0.5, 1.0);
+        console.log(this.renderable);
     }
 
     /**

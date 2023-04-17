@@ -54,7 +54,7 @@ class TeleportEntity extends me.Entity {
 
         // only check for collision against player and world shape
         this.body.setCollisionMask(me.collision.types.PLAYER_OBJECT | game.collisionTypes.BULLET);
-
+        this.renderable.anchorPoint.set(0.5, 1.0);
     }
 
     update(dt) {
